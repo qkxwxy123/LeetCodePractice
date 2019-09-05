@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {
+        int len1 = queries.size(), len2 = words.size();
+        int  query[len1] = {0}, word[len2] = {0};
+        char minn;
+        vector<int>res;
+        for(int i = 0; i < len1; i++)
+        {
+            minn = queries[i][0];
+            for(int j = 0; j < queries[i].size(); j++)
+            if(queries[i][j] <= minn)
+                minn = queries[i][j];
+            for(int j = 0; j < queries[i].size(); j++)
+                if(queries[i][j] == minn)
+                    query[i]++;
+        }
+        
+        for(int i = 0; i < len2; i++)
+        {
+            minn = words[i][0];
+            for(int j = 0; j < words[i].size(); j++)
+            if(words[i][j] <= minn)
+                minn = words[i][j];
+            for(int j = 0; j < words[i].size(); j++)
+                if(words[i][j] == minn)
+                    word[i]++;
+        }
+        
+        int count = 0;
+        for(int i = 0; i < len1; i++)
+        {
+            count = 0;
+            for(int j = 0; j < len2; j++)
+                if(query[i] < word[j])
+                    count++;
+            res.push_back(count);
+        }
+        return res;
+    }
+};
