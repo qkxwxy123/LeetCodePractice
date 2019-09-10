@@ -1,0 +1,69 @@
+class MyHashSet {
+public:
+    struct node
+    {
+        int val;
+        node* next;
+        node(int value): val(value), next(NULL){}
+    };
+    int size = 1000;
+    vector<node*>mhash;
+    /** Initialize your data structure here. */
+    MyHashSet() {
+        mhash = vector<node*>(size, new node(-1));
+    }
+    
+    void add(int key) {
+        int index = key % size;
+        node* temp = mhash[index];
+        if (temp->val == -1)
+        {
+            temp->val = key;
+            return;
+        }
+        while(temp != NULL)
+        {
+            if(temp->val == key)
+                return;
+            if(!(temp->next))
+            {
+                node* newnode = new node(key);
+                temp->next = newnode;
+                return;
+            }
+            temp = temp->next;
+        }
+    }
+    
+    void remove(int key) {
+        int index = key % size;
+        node* temp = mhash[index];
+        while(temp != NULL)
+        {
+            if(temp->val == key)
+                temp->val = -1;
+            temp = temp->next;
+        }
+    }
+    
+    /** Returns true if this set contains the specified element */
+    bool contains(int key) {
+        int index = key % size;
+        node* temp = mhash[index];
+        while(temp != NULL)
+        {
+            if(temp->val == key)
+                return true;
+            temp = temp->next;
+        }
+        return false;
+    }
+};
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet* obj = new MyHashSet();
+ * obj->add(key);
+ * obj->remove(key);
+ * bool param_3 = obj->contains(key);
+ */

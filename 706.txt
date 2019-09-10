@@ -1,0 +1,67 @@
+class MyHashMap {
+public:
+    struct node
+    {
+        int key,val;
+        int len;
+        node* next;
+        node(int nkey, int nval): key(nkey), val(nval), next(NULL){}
+    };
+    vector<node* >mhash;
+    int size = 1000;
+    /** Initialize your data structure here. */
+    MyHashMap() {
+        mhash = vector<node*>(size, new node(-1, -1));
+    }
+    
+    /** value will always be non-negative. */
+    void put(int key, int value) {
+        int index = key % size;
+        node* temp = mhash[index], * tail;
+        while(temp != NULL)
+        {
+            if(temp->key == key)
+            {
+                temp->val = value;
+                return;
+            }
+            tail = temp;
+            temp = temp->next;
+        }
+        node* newnode = new node(key, value);
+        tail->next = newnode;
+    }
+    
+    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    int get(int key) {
+        int index = key % size;
+        node* temp = mhash[index];
+        while(temp != NULL)
+        {
+            if(temp->key == key)
+                return temp->val;
+            temp = temp->next;
+        }
+        return -1;
+    }
+    
+    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    void remove(int key) {
+        int index = key % size;
+        node* temp = mhash[index];
+        while(temp != NULL)
+        {
+            if(temp->key == key)
+                temp->val = -1;
+            temp = temp->next;
+        }
+    }
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
