@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int countCharacters(vector<string>& words, string chars) {
+        int a[26] = {0}, temp[26] = {0};
+        int count = 0;
+        for(int i = 0; i < chars.size(); i++)
+            a[chars[i] - 'a']++;
+        for(int i = 0; i < words.size(); i++)
+        {
+            int flag = 1;
+            for(int j = 0; j < 26; j++)
+                temp[j] = a[j];
+            for(int j = 0; j < words[i].size(); j++)
+            {
+                temp[words[i][j] - 'a']--;
+            }
+            for(int j = 0; j < 26; j++)
+                if(temp[j] < 0)
+                    flag = 0;
+            if(flag == 1)
+                count += words[i].size();
+        }
+        return count;
+    }
+};
