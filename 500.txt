@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string> findWords(vector<string>& words) {
+        vector<string>res;
+        map<char, int>mp;
+        mp['q'] = mp['w'] = mp['e'] = mp['r'] = mp['t'] = mp['y'] = mp['u'] = mp['i'] = mp['o'] = mp['p'] = mp['Q'] = mp['W'] = mp['E'] = mp['R'] = mp['T'] = mp['Y'] = mp['U'] = mp['I'] = mp['O'] = mp['P'] = 1;
+        mp['a'] = mp['s'] = mp['d'] = mp['f'] = mp['g'] = mp['h'] = mp['j'] = mp['k'] = mp['l'] = mp['A'] = mp['S'] = mp['D'] = mp['F'] = mp['G'] = mp['H'] = mp['J'] = mp['K'] = mp['L'] = 2;
+        mp['z'] = mp['x'] = mp['c'] = mp['v'] = mp['b'] = mp['n'] = mp['m'] = mp['Z'] = mp['X'] = mp['C'] = mp['V'] = mp['B'] = mp['N'] = mp['M'] = 3;
+        int flag = 1;
+
+        for(int i = 0; i < words.size(); i++)
+        {
+            flag = 1;
+            for(int j = 0; j < words[i].size() - 1; j++)
+            {
+                if(mp[words[i][j]] != mp[words[i][j + 1]])
+                    flag = 0;
+            }
+            if(flag)
+                res.push_back(words[i]);
+        }
+        return res;
+    }
+};

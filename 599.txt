@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
+        map<string, int>mp1;
+        map<string, int>mp2;
+        map<string, int>mp3;
+        map<string, int>::iterator it;
+        string res;
+        vector<string>rr;
+        for(int i = 0; i < list1.size(); i++)
+            mp1.insert(make_pair(list1[i], i));
+        for(int i = 0; i < list2.size(); i++)
+            mp2.insert(make_pair(list2[i], i));
+        int f = 2222;
+        for(it = mp1.begin(); it != mp1.end(); it++)
+        {
+            if(mp2.find(it->first) != mp2.end())
+            {
+                //cout << it->second + mp2[it->first];
+                if(it->second + mp2[it->first] <= f)
+                {
+                    f = it->second + mp2[it->first];
+                    res = it->first;
+                    mp3.insert(make_pair(res, f));
+                }
+            }
+        }
+        int minn = 2222;
+        for(it = mp3.begin(); it != mp3.end(); it++)
+            minn = min(minn, it->second);
+        for(it = mp3.begin(); it != mp3.end(); it++)
+            if(it->second == minn)
+                rr.push_back(it->first);
+        return rr;
+    }
+};
