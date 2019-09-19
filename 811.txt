@@ -1,0 +1,81 @@
+class Solution {
+public:
+    vector<string> subdomainVisits(vector<string>& cpdomains) {
+	map<string, int>mp;
+	map<string, int>::iterator it;
+	vector<string>res;
+	vector<string>::iterator it2;
+	string a = "";
+	int pos = 0;
+	int num = 0;
+	for (int i = 0; i < cpdomains.size(); i++)
+	{
+		pos = 0;
+		a = "";
+		char x[10001];
+		while (cpdomains[i][pos] != ' ')
+		{
+			x[pos] = cpdomains[i][pos];
+			pos++;
+		}
+		pos--;
+		num = 0;
+		int bitNum = 0;
+		while (pos != -1)
+		{
+			//cout << x[pos] << ' ' << pow(10, bitNum) << endl;
+			num += (x[pos] - '0') * pow(10, bitNum);
+			pos--;
+			bitNum++;
+		}
+		//cout << num << endl;
+		a = "";
+		pos = cpdomains[i].size() - 1;
+		while (1)
+		{
+			if (cpdomains[i][pos] == ' ')
+			{
+				string temp = a;
+				reverse(temp.begin(), temp.end());
+				if (mp.count(temp))
+					mp[temp] += num;
+				else
+					mp.insert(make_pair(temp, num));
+				a = "";
+				break;
+			}
+			else if (cpdomains[i][pos] == '.')
+			{
+				string temp = a;
+				reverse(temp.begin(), temp.end());
+				if (mp.count(temp))
+					mp[temp] += num;
+				else
+					mp.insert(make_pair(temp, num));
+				a += '.';
+				pos--;
+			}
+			else
+			{
+				a += cpdomains[i][pos];
+				pos--;
+			}
+		}
+	}
+	for (it = mp.begin(); it != mp.end(); it++)
+	{
+		a = "";
+		string ti;
+		//int xx = it->first;
+		stringstream ss;
+		ss << it->second;
+		//cout << it->first << endl << it->second<<endl;
+		ti = ss.str();
+		a += ti;
+		a += ' ';
+		a += it->first;
+		res.push_back(a);
+	}
+        return res;
+    }
+};

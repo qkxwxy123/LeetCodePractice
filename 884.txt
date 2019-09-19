@@ -1,0 +1,64 @@
+class Solution {
+public:
+    vector<string> uncommonFromSentences(string A, string B) {
+        vector<string> res;
+        unordered_map<string, int>mp1;
+        unordered_map<string, int>mp2;
+        set<string>s1;
+        set<string>s2;
+        set<string>::iterator it;
+        A += ' ';
+        B += ' ';
+        string a = "";
+        int pos = 0;
+        for(;;)
+        {
+            if(pos == A.size())
+                break;
+            if(A[pos] == ' ')
+            {
+                if(mp1.count(a))
+                    mp1[a]++;
+                else
+                    mp1.insert(make_pair(a, 1));
+                s1.insert(a);
+                a = "";
+                pos++;
+            }
+            else
+            {
+                a += A[pos];
+                pos++;
+            }
+        }
+        a = "";
+        pos = 0;
+        for(;;)
+        {
+            if(pos == B.size())
+                break;
+            if(B[pos] == ' ')
+            {
+                if(mp2.count(a))
+                    mp2[a]++;
+                else
+                    mp2.insert(make_pair(a, 1));
+                s2.insert(a);
+                a = "";
+                pos++;
+            }
+            else
+            {
+                a += B[pos];
+                pos++;
+            }
+        }
+        for(it = s1.begin(); it != s1.end(); it++)
+            if(mp1[*it] == 1 && !mp2.count(*it))
+                res.push_back(*it);
+        for(it = s2.begin(); it != s2.end(); it++)
+            if(mp2[*it] == 1 && !mp1.count(*it))
+                res.push_back(*it);
+        return res;
+    }
+};
