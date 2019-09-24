@@ -1,0 +1,57 @@
+class Trie
+{
+    bool flag = false;
+    Trie* next[26];
+public:
+    Trie ()
+    {
+        flag = false;
+        memset(next, 0, sizeof(next));
+    }
+    void insert(string words)
+    {
+        Trie * root = this;
+        for(const auto& w: words){
+            if(root->next[w - 'a'] == nullptr)
+                root->next[w - 'a'] = new Trie();
+            root = root->next[w - 'a'];
+        }
+        root->flag = true;
+    }
+    
+    bool search(string words)
+    {
+        Trie * root = this;
+        for(const auto& w: words)
+        {
+            if(root->next[w - 'a'] == nullptr || root->next[w - 'a']->flag == false)
+                return false;
+            root = root->next[w - 'a'];
+        }
+        root->flag = true;
+        return true;
+    }
+    
+};
+class Solution {
+public:
+    string longestWord(vector<string>& words) {
+        string res = "";
+        if(words.size() == 0)
+            return "";
+        Trie* root = new Trie();
+        for(const auto& word: words)
+            root->insert(word);
+        for(const auto& word: words)
+        {
+            if(root->search(word))
+            {
+                if(word.size() > res.size())
+                    res = word;
+                else if(word.size() == res.size() && word < res)
+                    res = word;
+            }
+        }
+        return res;
+    }
+};

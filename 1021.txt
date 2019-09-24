@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string removeOuterParentheses(string S) {
+        int L = 1, R = 0;
+        string v;
+        for(int i = 1; i < S.size(); i++)
+        {
+            if(S[i] == '(')L++;
+            else R++;
+            if(L != R)
+                v += S[i];
+            else
+                i++, L = 1, R = 0;
+        }
+        return v;
+    }
+};

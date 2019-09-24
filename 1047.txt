@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string removeDuplicates(string S) {
+        if(S.size() == 1)
+            return S;
+        stack<char>s;
+        s.push(S[0]);
+        string res = "";
+        for(int i = 1; i < S.size(); i++)
+        {
+            if(!s.empty() && S[i] == s.top())
+                s.pop();
+            else
+                s.push(S[i]);
+        }
+        while(!s.empty())
+        {
+            res += s.top();
+            s.pop();
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};
