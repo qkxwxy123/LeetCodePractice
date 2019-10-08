@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool validMountainArray(vector<int>& A) {
+        if(A.size() < 3)
+            return false;
+        int flag = 1;
+        if(A[0] >= A[1])
+            return false;
+        for(int i = 0; i < A.size() - 1; i++)
+        {
+            if(flag == 1 && A[i] > A[i + 1])
+                flag = 2;
+            if(flag == 2 && A[i] < A[i + 1])
+                return false;
+            if(A[i] == A[i + 1])
+                return false;
+        }
+        if(flag == 1)
+            return false;
+        return true;
+    }
+};
