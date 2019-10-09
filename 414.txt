@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        if(nums.size() < 3)
+        {
+            if(nums.size() == 1)
+                return nums[0];
+            else
+                return max(nums[0], nums[1]);
+        }
+        
+        int maxx = -2147483648, resmax = 0;
+        vector<int>::iterator it;
+        for(int i = 0; i < nums.size(); i++)
+            maxx = max(maxx, nums[i]);
+        for(it = nums.begin(); it != nums.end();)
+        {
+            if(maxx == *it)
+                nums.erase(it);
+            else
+                it++;
+        }
+        resmax = maxx;
+        
+        maxx = -2147483648;
+        for(int i = 0; i < nums.size(); i++)
+            maxx = max(maxx, nums[i]);
+        for(it = nums.begin(); it != nums.end();)
+        {
+            if(maxx == *it)
+                nums.erase(it);
+            else
+                it++;
+        }
+        
+        if(nums.size() < 1)
+            return resmax;
+        
+        maxx = -2147483648;
+        for(int i = 0; i < nums.size(); i++)
+            maxx = max(maxx, nums[i]);
+        return maxx;
+    }
+};
