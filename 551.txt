@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool checkRecord(string s) {
+        int flagA = 0, flagL = 0;
+        for(int i = 0; i < s.size(); i++)
+        {
+            if(flagA > 1 || flagL > 2)
+                break;
+            if(s[i] == 'A' && flagA != 0)
+            {
+                flagA++;
+                flagL = 0;
+                continue;
+            }
+            else if(s[i] == 'L' && flagL < 2)
+                flagL++;
+            else if(s[i] == 'A' && flagA == 0)
+            {
+                flagA++;
+                if(flagL <= 2)
+                    flagL = 0;
+            }
+            else if(s[i] == 'L' && flagL == 2)
+                flagL++;
+            else if(s[i] != 'A' && s[i] != 'L' && flagL <= 2)
+                flagL = 0;
+        }
+        if(flagA == 1)
+            flagA = 0;
+        if(flagL <= 2)
+            flagL = 0;
+        if(flagA != 0 || flagL != 0)
+            return false;
+        return true;
+
+    }
+};
