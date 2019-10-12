@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int rotatedDigits(int N) {
+        map<int, int>mp;
+        int num = 0, temp, flag = 1, flag2 = 1;
+        mp.insert(make_pair(0, 0));
+        mp.insert(make_pair(1, 1));
+        mp.insert(make_pair(8, 8));
+        mp.insert(make_pair(2, 5));
+        mp.insert(make_pair(5, 2));
+        mp.insert(make_pair(6, 9));
+        mp.insert(make_pair(9, 6));
+        mp.insert(make_pair(3, -1));
+        mp.insert(make_pair(4, -1));
+        mp.insert(make_pair(5, -1));
+        mp.insert(make_pair(7, -1));
+        
+        for(int i = 1; i <= N; i++)
+        {
+            temp = i;
+            flag = 1;
+            flag2 = 1;
+            if (temp < 10)
+            {
+                if(mp[temp] != -1)
+                    if(temp != 0 && temp != 1 && temp != 8)
+                    {
+                        num++;
+                        continue;
+                    }
+            }
+            else
+            {
+                while(temp != 0)
+                {
+                    int l = temp % 10;
+                    temp /= 10;
+                    if(mp[l] != -1)
+                    {
+                        if(l != 0 && l != 1 && l != 8)
+                            flag = 0;
+                    }
+                    else
+                    {
+                        flag2 = 0;
+                    }
+                }
+                if(flag == 0 && flag2)
+                    num++;
+            }
+        }
+        return num;
+    }
+};
