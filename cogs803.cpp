@@ -13,10 +13,10 @@ struct Edge
 	int to, pre;
 }e[maxn << 2];
 
-int n, K, Ai[maxn], Pi[maxn], ans[maxn] = { 0 }, cnt1 = 0, lastE[maxn] = { 0 };
+int n, K, Ai[maxn], Pi[maxn], ans[maxn] = { 0 }, cnt1 = 0, lastE[maxn] = { 0 };           
 int p[maxn], dis[maxn] = { 0 }, rt;
-int Size[maxn], son[maxn];
-int top[maxn], deps[maxn];
+int Size[maxn], son[maxn];                         //size[n] 表示n的子树中节点个数  son[n]表示n的子树中节点数最多的树的根
+int top[maxn], deps[maxn];                        //deps表示政党i的最大深度的节点序号  ，top表示树的直径的起始点用来求lca
 
 void insert1(int from, int to)
 {
@@ -72,8 +72,8 @@ int LCA(int x, int y)
 
 int main()
 {
-	freopen("cowpol.in", "r", stdin);
-	freopen("cowpol.out", "w", stdout);
+	//freopen("cowpol.in", "r", stdin);
+	//freopen("cowpol.out", "w", stdout);
 	scanf("%d %d", &n, &K);
 	for (int i = 1; i <= n; i++)
 	{
